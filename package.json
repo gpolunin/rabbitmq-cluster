@@ -1,0 +1,25 @@
+{
+  "name": "rabbitmq-cluster",
+  "version": "1.0.0",
+  "description": "Deployment configurations and stuff for https://github.com/TargetProcess/Tp.Metrics.Recalculations",
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint_staged"
+    }
+  },
+  "lint-staged": {
+    "*.{yaml,yml}": "node lint.yaml.js"
+  },
+  "scripts": {
+    "lint": "node lint.yaml.js ./**/*.{yaml,yml}",
+    "lint_staged": "lint-staged",
+    "restart_all_in_local_kube": "cd scripts && clear_and_deploy_in_local_kube"
+  },
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "ghooks": "^1.3.2",
+    "glob": "^7.1.1",
+    "js-yaml": "^3.7.0",
+    "lint-staged": "^3.2.3"
+  }
+}
