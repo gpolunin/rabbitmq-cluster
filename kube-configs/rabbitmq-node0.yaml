@@ -1,19 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: rabbitmq-master
+  name: rabbitmq-node0
   namespace: cluster
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        run: rabbitmq-master
+        run: rabbitmq-node0
+        cluster-node: rabbitmq-node
       annotations:
-        "pod.beta.kubernetes.io/hostname": rabbitmqmaster
+        "pod.beta.kubernetes.io/hostname": rabbitmq-node0
     spec:
       containers:
-      - name: rabbitmq-master
+      - name: rabbitmq-node0
         resources:
           limits:
             cpu: 1
