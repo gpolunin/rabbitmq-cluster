@@ -1,7 +1,0 @@
-kubectl exec -it --namespace=cluster rabbitmq-slave1-2441297397-154gh -c rabbitmq-slave1 bash -i
-rabbitmqctl stop_app
-rabbitmqctl join_cluster rabbit@rabbitmq-master
-rabbitmqctl start_app
-
-rabbitmqctl set_policy ha-mirrored "^ha-mirrored\." \
-   '{"ha-mode":"nodes","ha-params":["rabbit@rabbitmq-slave1", "rabbit@rabbitmq-slave2"]}' --priority 1 --apply-to queues

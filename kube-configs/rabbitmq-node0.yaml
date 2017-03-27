@@ -14,7 +14,7 @@ spec:
         "pod.beta.kubernetes.io/hostname": rabbitmq-node0
     spec:
       containers:
-      - name: rabbitmq-node0
+      - name: rabbitmq
         resources:
           limits:
             cpu: 1

@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: rabbitmq-node2
+  name: rabbitmq-node6
   namespace: cluster
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        run: rabbitmq-node2
+        run: rabbitmq-node6
         cluster-node: rabbitmq-node
       annotations:
-        "pod.beta.kubernetes.io/hostname": rabbitmq-node2
+        "pod.beta.kubernetes.io/hostname": rabbitmq-node6
     spec:
       containers:
       - name: rabbitmq
