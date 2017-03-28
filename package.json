@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "node lint.yaml.js ./**/*.{yaml,yml}",
     "lint_staged": "lint-staged",
-    "restart_all_in_local_kube": "cd scripts && clear_and_deploy_in_local_kube"
+    "restart_all_in_local_kube": "cd scripts && ./clear_and_deploy_in_local_kube"
   },
   "devDependencies": {
     "chalk": "^1.1.3",
