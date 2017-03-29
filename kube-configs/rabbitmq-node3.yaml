@@ -17,11 +17,10 @@ spec:
       - name: rabbitmq
         resources:
           limits:
-            cpu: 1
-            memory: 512Mi
+            cpu: 2
+            memory: 2048Mi
           requests:
-            cpu: 300m
-            memory: 216Mi
+            memory: 2048Mi
         image: rabbitmq:3.6-management
         ports:
         - containerPort: 5672
