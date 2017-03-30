@@ -1,11 +1,14 @@
 FROM rabbitmq:3.6-management
 
-ENV RABBITMQ_AUTOCLUSTER 0.6.1
+ENV RABBITMQ_AUTOCLUSTER 0.6.1 \
+    RABBITMQ_USE_LONGNAME=true \
+    AUTOCLUSTER_LOG_LEVEL=debug \
+    AUTOCLUSTER_CLEANUP=true \
+    CLEANUP_INTERVAL=60 \
+    CLEANUP_WARN_ONLY=false \
+    AUTOCLUSTER_TYPE=k8s
 
-RUN  apt-get update -y && apt-get install -y wget && \
-wget -qO- https://github.com/rabbitmq/rabbitmq-autocluster/releases/download/$RABBITMQ_AUTOCLUSTER/autocluster-$RABBITMQ_AUTOCLUSTER.tgz  | tar xvz -C /plugins/ --strip 1
-
-RUN apt-get purge -y wget
+ADD plugins/*.ez /plugins/
 
 RUN rabbitmq-plugins enable --offline autocluster
 
