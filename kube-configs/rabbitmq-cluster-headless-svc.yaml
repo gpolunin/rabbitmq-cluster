@@ -3,10 +3,10 @@ kind: Service
 metadata:
   labels:
     run: rabbitmq
-  name: rabbitmq
+  name: rabbitmq-cluster
   namespace: cluster
 spec:
-  type: ClusterIP
+  clusterIP: None
   ports:
   - name: queue
     port: 5672

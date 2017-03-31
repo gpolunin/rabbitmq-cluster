@@ -3,20 +3,20 @@ kind: Service
 metadata:
   labels:
     run: rabbitmq
-  name: rabbitmq
+  name: rabbitmq-external
   namespace: cluster
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: queue
+    nodePort: 30022
     port: 5672
+    targetPort: 5672
     protocol: TCP
-  - name: epmd
-    port: 4369
-    protocol: TCP
-  - name: erlang
-    port: 25672
+  - name: admin
+    nodePort: 30023
+    port: 15672
+    targetPort: 15672
     protocol: TCP
   selector:
     run: rabbitmq
-

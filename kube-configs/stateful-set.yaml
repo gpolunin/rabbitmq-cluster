@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq
   namespace: cluster
 spec:
-  serviceName: rabbitmq
+  serviceName: rabbitmq-cluster
   replicas: 5
   template:
     metadata:
@@ -24,6 +24,12 @@ spec:
         - mountPath: /var/lib/rabbitmq
           name: rabbitmq-storage
         env:
+#        - name: K8S_HOST
+#          value: "rabbitmq.cluster.svc.cluster.local"
+        - name: K8S_SERVICE_NAME
+          value: "rabbitmq-cluster"
+        - name: AUTOCLUSTER_TYPE
+          value: "k8s"
         - name: RABBITMQ_ERLANG_COOKIE
           value: "cluster_cookie"
         - name: AUTOCLUSTER_CLEANUP
@@ -31,7 +37,7 @@ spec:
         - name: CLEANUP_INTERVAL
           value: "60"
         - name: CLEANUP_WARN_ONLY
-          value: "true"
+          value: "false"
         - name: RABBITMQ_USE_LONGNAME
           value: "true"
         - name: NODE_NAME
@@ -39,9 +45,24 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: RABBITMQ_NODENAME
-          value: rabbit@$(NODE_NAME)
-
+          value: rabbit@$(NODE_NAME).rabbitmq-cluster
+        - name: HOSTNAME
+          value: $(NODE_NAME).rabbitmq-cluster
+#        - name: RABBITMQ_NODENAME
+#          value: rabbit@$(NODE_NAME)
       volumes:
       - name: rabbitmq-storage
         hostPath:
           path: /mnt/kube_common/cluster-rabbitmq/data
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: rabbitmq-storage-claim
+#        namespace: cluster
+##        annotations:
+##          volume.alpha.kubernetes.io/storage-class: anything
+#      spec:
+#        accessModes:
+#          - ReadWriteMany
+#        resources:
+#          requests:
+#            storage: 4Gi
