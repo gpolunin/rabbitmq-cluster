@@ -26,10 +26,12 @@ spec:
         env:
 #        - name: K8S_HOST
 #          value: "rabbitmq.cluster.svc.cluster.local"
-        - name: K8S_SERVICE_NAME
-          value: "rabbitmq-cluster"
+#        - name: K8S_SERVICE_NAME
+#          value: "rabbitmq-cluster"
         - name: AUTOCLUSTER_TYPE
-          value: "k8s"
+          value: "etcd"
+        - name: ETCD_HOST
+          value: "etcd"
         - name: RABBITMQ_ERLANG_COOKIE
           value: "cluster_cookie"
         - name: AUTOCLUSTER_CLEANUP

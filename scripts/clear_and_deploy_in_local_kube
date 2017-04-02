@@ -1,7 +1,14 @@
 #!/bin/bash
 bash clear.sh
 cd ../kube-configs;
-find . -name "*.yaml" -print0 | while read -d $'\0' file
+find . -name "*svc.yaml" -print0 | while read -d $'\0' file
+do
+      kubectl create -f "$file";
+done
+
+sleep 30
+
+find . -name "*.yaml" ! -name "*svc.yaml" -print0 | while read -d $'\0' file
 do
       kubectl create -f "$file";
 done
