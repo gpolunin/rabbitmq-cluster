@@ -5,7 +5,7 @@ metadata:
   namespace: cluster
 spec:
   serviceName: rabbitmq-cluster
-  replicas: 5
+  replicas: 7
   template:
     metadata:
       labels:
@@ -13,6 +13,11 @@ spec:
     spec:
       containers:
       - name: rabbitmq
+        resources:
+          limits:
+            memory: 1024Mi
+          requests:
+            memory: 512Mi
         image: gpolunin/rabbitmq:test
         ports:
         - containerPort: 5672

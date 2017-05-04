@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: etcd
-        image: elcolio/etcd:2.0.10
+        image: appcelerator/etcd:3.1.7
         ports:
         - containerPort: 2379
         - containerPort: 2380
