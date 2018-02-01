@@ -5,7 +5,7 @@ metadata:
   namespace: cluster
 spec:
   serviceName: rabbitmq-cluster
-  replicas: 7
+  replicas: 3
   template:
     metadata:
       labels:
@@ -17,22 +17,27 @@ spec:
           limits:
             memory: 1024Mi
           requests:
-            memory: 512Mi
-        image: gpolunin/rabbitmq:test
+            memory: 128Mi
+        image: targetprocess/rabbitmq:test
+        imagePullPolicy: Always
         ports:
         - containerPort: 5672
         - containerPort: 15672
         - containerPort: 4369
         - containerPort: 25672
         - containerPort: 55950
-        volumeMounts:
-        - mountPath: /var/lib/rabbitmq
-          name: rabbitmq-storage
+        # volumeMounts:
+        # - mountPath: /var/lib/rabbitmq
+        #   name: rabbitmq-storage
         env:
 #        - name: K8S_HOST
 #          value: "rabbitmq.cluster.svc.cluster.local"
 #        - name: K8S_SERVICE_NAME
 #          value: "rabbitmq-cluster"
+        - name: RABBITMQ_DEFAULT_USER
+          value: "rabbitmq"
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "rabbitmq"
         - name: AUTOCLUSTER_TYPE
           value: "etcd"
         - name: ETCD_HOST
@@ -55,12 +60,26 @@ spec:
           value: rabbit@$(NODE_NAME).rabbitmq-cluster
         - name: HOSTNAME
           value: $(NODE_NAME).rabbitmq-cluster
+        livenessProbe:
+          exec:
+            command:
+            - rabbitmqctl
+            - status
+          initialDelaySeconds: 50
+          timeoutSeconds: 5
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #     - rabbitmqctl
+        #     - status
+        #   initialDelaySeconds: 50
+        #   timeoutSeconds: 50
 #        - name: RABBITMQ_NODENAME
 #          value: rabbit@$(NODE_NAME)
-      volumes:
-      - name: rabbitmq-storage
-        hostPath:
-          path: /mnt/kube_common/cluster-rabbitmq/data
+      # volumes:
+      # - name: rabbitmq-storage
+      #   hostPath:
+      #     path: /mnt/kube_common/cluster-rabbitmq/data
 #  volumeClaimTemplates:
 #    - metadata:
 #        name: rabbitmq-storage-claim
