@@ -1,27 +1,27 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: etcd
-  namespace: cluster
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        run: etcd
-    spec:
-      containers:
-      - name: etcd
-        image: appcelerator/etcd:3.1.7
-        ports:
-        - containerPort: 2379
-        - containerPort: 2380
-        - containerPort: 4001
-        - containerPort: 7001
-        volumeMounts:
-        - mountPath: /data
-          name: etcd-storage
-      volumes:
-      - name: etcd-storage
-        hostPath:
-          path: /mnt/kube_common/cluster-rabbitmq/etcd
+# apiVersion: extensions/v1beta1
+# kind: Deployment
+# metadata:
+#   name: etcd
+#   namespace: cluster
+# spec:
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         run: etcd
+#     spec:
+#       containers:
+#       - name: etcd
+#         image: appcelerator/etcd:3.1.7
+#         ports:
+#         - containerPort: 2379
+#         - containerPort: 2380
+#         - containerPort: 4001
+#         - containerPort: 7001
+#         volumeMounts:
+#         - mountPath: /data
+#           name: etcd-storage
+#       volumes:
+#       - name: etcd-storage
+#         hostPath:
+#           path: /mnt/kube_common/cluster-rabbitmq/etcd

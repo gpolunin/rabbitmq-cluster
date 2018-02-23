@@ -18,7 +18,7 @@ spec:
             memory: 1024Mi
           requests:
             memory: 128Mi
-        image: targetprocess/rabbitmq:test
+        image: targetprocess/rabbitmq:upgraded_config
         imagePullPolicy: Always
         ports:
         - containerPort: 5672
@@ -34,14 +34,16 @@ spec:
 #          value: "rabbitmq.cluster.svc.cluster.local"
 #        - name: K8S_SERVICE_NAME
 #          value: "rabbitmq-cluster"
+        # - name: AUTOCLUSTER_TYPE
+        #   value: "etcd"
+        # - name: ETCD_HOST
+        #   value: "etcd"
         - name: RABBITMQ_DEFAULT_USER
           value: "rabbitmq"
         - name: RABBITMQ_DEFAULT_PASS
           value: "rabbitmq"
-        - name: AUTOCLUSTER_TYPE
-          value: "etcd"
-        - name: ETCD_HOST
-          value: "etcd"
+        - name: RABBITMQ_NODE_COUNT
+          value: "3"
         - name: RABBITMQ_ERLANG_COOKIE
           value: "cluster_cookie"
         - name: AUTOCLUSTER_CLEANUP
